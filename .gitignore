@@ -1,0 +1,53 @@
+# Node modules and build output
+node_modules/
+dist/
+build/
+.vite/
+.vitepress/
+.next/
+out/
+.temp/
+.temp-* 
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# Logs and runtime files
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+lerna-debug.log*
+ai_responses_log.txt
+resume_context.txt
+
+# Uploads and generated content
+server/uploads/
+
+# Environment variables
+.env
+*.env.*
+
+# Coverage and testing
+coverage/
+*.lcov
+*.nyc_output/
+
+# Editor configs
+.vscode/
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# System files
+.DS_Store
+Thumbs.db
