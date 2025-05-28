@@ -1,0 +1,22 @@
+FROM python:3.11-slim
+
+# Install system & screenshot dependencies
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    gcc build-essential \
+    portaudio19-dev libasound-dev \
+    xvfb x11-utils libx11-6 libgtk-3-0 python3-tk \
+    gnome-screenshot xauth curl && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Set workdir and env
+WORKDIR /app
+ENV DISPLAY=:99
+
+# Copy files
+COPY server/requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY server/screenshot_server.py .
+
+# Run using Python+Xvfb (flask dev server first)
+CMD ["xvfb-run", "-a", "python", "screenshot_server.py"]

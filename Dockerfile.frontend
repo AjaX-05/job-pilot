@@ -1,0 +1,57 @@
+FROM node:18
+
+# Set working directory
+WORKDIR /app
+
+# Copy root-level config files (if any)
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy config files if they're in root (adjust if inside `src/`)
+COPY vite.config.ts ./
+COPY tailwind.config.js ./
+COPY postcss.config.js ./
+
+# Copy frontend source
+COPY src/ ./src
+COPY public/ ./public
+COPY index.html ./
+
+# Build the frontend
+RUN npm run build
+
+# Serve the built frontend
+RUN npm install -g serve
+CMD ["serve", "-s", "dist", "-l", "5173"]FROM node:18
+
+# Set working directory
+WORKDIR /app
+
+# Copy root-level config files (if any)
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy Vite and Tailwind config
+COPY vite.config.ts ./
+COPY tailwind.config.js ./
+COPY postcss.config.js ./
+
+# ✅ Copy environment variables
+COPY .env ./
+
+# Copy frontend source
+COPY src/ ./src
+COPY public/ ./public
+COPY index.html ./
+
+# Build the frontend
+RUN npm run build
+
+# Serve the built frontend
+RUN npm install -g serve
+CMD ["serve", "-s", "dist", "-l", "5173"]
+
